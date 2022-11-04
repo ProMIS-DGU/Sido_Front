@@ -16,9 +16,11 @@ function Login() {
   //   });
   const [id, setId] = useState();
   const [pw, setPw] = useState();
-  useEffect(() => {
-    console.log(id, pw);
-  }, [id, pw]);
+
+  //   useEffect(() => {
+  //     console.log(id, pw);
+  //   }, [id, pw]);
+
 
   //   const onChangeAccount = (e) => {
   //     setAccount({
