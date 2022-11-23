@@ -1,33 +1,17 @@
-import React, { useState, useEffect } from "react";
-import Login_navbar from "../components/Login_navbar";
-import login_styles from "../static/css/login.module.css";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import Login_navbar from '../components/Login_navbar';
+import login_styles from '../static/css/login.module.css';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Login() {
   const navigate = useNavigate();
   const move_to_signup = () => {
-    navigate("/Signup");
+    navigate('/Signup');
   };
 
-  //   const [account, setAccount] = useState({
-  //     id: "",
-  //     pw: "",
-  //   });
   const [id, setId] = useState();
   const [pw, setPw] = useState();
-
-  //   useEffect(() => {
-  //     console.log(id, pw);
-  //   }, [id, pw]);
-
-
-  //   const onChangeAccount = (e) => {
-  //     setAccount({
-  //       ...account,
-  //       [e.target.name]: e.target.value,
-  //     });
-  //   };
 
   const onChangeid = (e) => {
     setId(e.target.value);
@@ -35,21 +19,34 @@ function Login() {
   const onChangepw = (e) => {
     setPw(e.target.value);
   };
-  const post_acount = async () => {
-    const data = {
-      id: id,
-      pw: pw,
-    };
-    try {
-      const request = await axios
-        .post("http://127.0.0.1:8080/login", data)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } catch {}
+  const post_acount = async (e) => {
+    e.preventDefault();
+    let formData = new FormData();
+
+    formData.append('id', id);
+    formData.append('pw', pw);
+
+    await axios
+      .post('http://127.0.0.1:8080/login', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(function(res) {
+        console.log(res, 'post 성공');
+      })
+      .catch(function(err) {
+        console.log(err, 'post 실패');
+
+        for (let key of formData.keys()) {
+          console.log(key);
+        }
+
+        /* value 확인하기 */
+        for (let value of formData.values()) {
+          console.log(value);
+        }
+      });
   };
   return (
     <div className={login_styles.login_page}>
@@ -61,7 +58,7 @@ function Login() {
               학번
             </label>
             <input
-              type="text"
+              type="number"
               id="id"
               name="id"
               className={login_styles.input}
