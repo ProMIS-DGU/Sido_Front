@@ -10,30 +10,16 @@ function Login() {
     navigate('/Signup');
   };
 
-  //   const [account, setAccount] = useState({
-  //     id: "",
-  //     pw: "",
-  //   });
   const [id, setId] = useState();
   const [pw, setPw] = useState();
-  //   useEffect(() => {
-  //     console.log(id, pw);
-  //   }, [id, pw]);
 
-  //   const onChangeAccount = (e) => {
-  //     setAccount({
-  //       ...account,
-  //       [e.target.name]: e.target.value,
-  //     });
-  //   };
-
-  const onChangeid = e => {
+  const onChangeid = (e) => {
     setId(e.target.value);
   };
-  const onChangepw = e => {
+  const onChangepw = (e) => {
     setPw(e.target.value);
   };
-  const post_acount = async e => {
+  const post_acount = async (e) => {
     e.preventDefault();
     let formData = new FormData();
 
